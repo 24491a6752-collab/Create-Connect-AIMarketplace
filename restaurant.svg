@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#202c2c"/><stop offset=".55" stop-color="#9d704e"/><stop offset="1" stop-color="#d7b48d"/></linearGradient><linearGradient id="win" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8f1ef"/><stop offset="1" stop-color="#6c9c9b"/></linearGradient></defs>
+<rect width="1200" height="800" fill="url(#bg)"/><rect x="650" y="100" width="430" height="390" rx="8" fill="url(#win)" opacity=".85"/><path d="M865 100v390M650 295h430" stroke="#294443" stroke-width="18" opacity=".7"/>
+<path d="M0 640h1200v160H0z" fill="#4b3528"/><g fill="#6b452e"><rect x="100" y="500" width="280" height="34" rx="8"/><rect x="145" y="534" width="30" height="150"/><rect x="305" y="534" width="30" height="150"/><rect x="820" y="525" width="270" height="32" rx="8"/><rect x="855" y="557" width="28" height="130"/><rect x="1025" y="557" width="28" height="130"/></g>
+<g fill="#b98454"><circle cx="240" cy="455" r="38"/><circle cx="950" cy="478" r="38"/></g><g fill="#2b2521"><path d="M225 455h30v90h-30z"/><path d="M935 478h30v90h-30z"/></g>
+<g fill="#1c2524"><path d="M130 0h42v185h-42z"/><path d="M360 0h42v145h-42z"/><path d="M590 0h42v200h-42z"/><path d="M880 0h42v155h-42z"/></g><g fill="#d9b07d"><ellipse cx="151" cy="205" rx="58" ry="35"/><ellipse cx="381" cy="165" rx="58" ry="35"/><ellipse cx="611" cy="220" rx="58" ry="35"/><ellipse cx="901" cy="175" rx="58" ry="35"/></g>
+<text x="70" y="90" font-family="Arial" font-size="44" font-weight="700" fill="#fff" opacity=".92">MOLECULAR KITCHEN</text>
+</svg>

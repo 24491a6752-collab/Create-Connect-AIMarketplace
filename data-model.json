@@ -1,0 +1,61 @@
+{
+  "creator": {
+    "identity": [
+      "name",
+      "bio",
+      "specialization"
+    ],
+    "matching": [
+      "skills[]",
+      "tools[]",
+      "models[]",
+      "contentTypes[]",
+      "formats[]"
+    ],
+    "portfolio": [
+      "portfolio[]",
+      "workflow[]"
+    ],
+    "commercialUse": [
+      "status",
+      "territories",
+      "media"
+    ],
+    "verification": [
+      "tools",
+      "workflow",
+      "work"
+    ]
+  },
+  "brief": {
+    "brand": [
+      "brandId",
+      "campaign"
+    ],
+    "requirements": [
+      "objective",
+      "requirements",
+      "style",
+      "contentTypes[]"
+    ],
+    "production": [
+      "formats[]",
+      "aspectRatios[]",
+      "deadline",
+      "budget",
+      "deliverables[]"
+    ],
+    "commercialUse": [
+      "scope",
+      "territories",
+      "media"
+    ],
+    "engagement": [
+      "creatorId",
+      "status",
+      "milestones[]",
+      "feedback[]",
+      "versions[]"
+    ]
+  }
+}

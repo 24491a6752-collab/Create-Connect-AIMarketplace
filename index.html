@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CreateConnect AI — Creator Marketplace</title>
+<style>
+:root{
+ --purple:#8b2be9;--purple2:#a53af0;--violet:#4c2a91;--navy:#111a33;
+ --ink:#17233d;--muted:#68778d;--bg:#f7f9fc;--card:#fff;--line:#e2e8f0;
+ --green:#16c784;--amber:#f3a51f;--red:#e65454;--shadow:0 14px 40px rgba(30,42,75,.10);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.top{height:82px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:25px;padding:0 28px;position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:12px;min-width:330px}.logo{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,#7043ef,#a92eec);display:grid;place-items:center;color:#fff;font-size:29px;box-shadow:0 8px 20px #7d38ea38}
+.brand-title{font-weight:900;font-size:27px;letter-spacing:-1.3px}.brand-title span{color:#9330e8}.brand-sub{font-size:11px;color:#8b99ad;font-weight:800;letter-spacing:.8px;margin-top:5px}
+.nav{display:flex;gap:3px;background:#f3f6fa;border-radius:17px;padding:4px;flex:1;max-width:650px}.nav button{border:0;background:transparent;color:#4e5d74;padding:13px 18px;border-radius:13px;font-weight:750;font-size:15px}.nav button.active{background:#fff;color:#8329e7;box-shadow:0 3px 10px #22314a0c}
+.actions{display:flex;gap:10px;margin-left:auto}.btn{border:1px solid var(--line);background:#fff;color:#3d4d65;border-radius:13px;padding:12px 16px;font-weight:800;display:inline-flex;gap:8px;align-items:center}.btn.dark{background:#111a32;color:#fff;border-color:#111a32}.btn.purple{background:linear-gradient(135deg,#8d2dea,#a036ef);color:#fff;border-color:transparent;box-shadow:0 8px 18px #9630e92c}.btn.small{font-size:12px;padding:8px 11px}.btn:hover{transform:translateY(-1px)}
+main{max-width:1850px;margin:auto;padding:48px 48px 75px}
+.hero{min-height:615px;border-radius:36px;overflow:hidden;position:relative;padding:70px 72px;color:#fff;background:
+ radial-gradient(circle at 58% 25%,#8069d322 0 1px,transparent 2px) 0 0/24px 24px,
+ radial-gradient(circle at 83% 75%,#6c55e622 0 1px,transparent 2px) 0 0/31px 31px,
+ linear-gradient(110deg,#632095,#3d277f 44%,#121a40)}
+.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 100%,#9c38e73d,transparent 45%);pointer-events:none}
+.hero-copy{position:relative;z-index:2;max-width:970px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid #d4a7ff66;background:#bb65f51c;border-radius:99px;color:#e4c6ff;font-weight:850;letter-spacing:.2px}
+.hero h1{font-size:72px;line-height:.97;letter-spacing:-4px;margin:34px 0 24px;max-width:800px}.hero h1 span{color:#d99ae9}.hero p{font-size:21px;line-height:1.6;color:#ddd5ed;max-width:1060px}
+.hero-actions{display:flex;gap:14px;margin-top:30px}.hero-actions .btn{font-size:17px;padding:15px 24px}.hero-points{display:flex;gap:38px;flex-wrap:wrap;margin-top:40px;color:#d5dbee;font-weight:650}.point{display:flex;gap:9px;align-items:center}.check{width:22px;height:22px;border:2px solid var(--green);border-radius:50%;display:grid;place-items:center;color:var(--green);font-size:12px}
+.section{margin-top:42px}.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}.filter{background:#fff;border:1px solid #dce3ed;border-radius:15px;padding:12px 19px;color:#47566d;font-weight:750}.filter.active{background:linear-gradient(135deg,#8d2dea,#9b34ee);color:#fff;border-color:transparent;box-shadow:0 8px 18px #9130ea2b}
+.toolbar{display:flex;gap:10px;margin-bottom:25px}.search{position:relative;flex:1}.search span{position:absolute;left:15px;top:12px;color:#74839a}.search input{width:100%;border:1px solid var(--line);border-radius:13px;padding:13px 15px 13px 42px;outline:0;background:#fff}.field{border:1px solid var(--line);border-radius:13px;padding:12px 14px;background:#fff;color:#45556d;outline:0}
+.workgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.work{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 3px 15px #24365c07;transition:.2s}.work:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.art{height:350px;position:relative;overflow:hidden;background:#ddd}.work-image{width:100%;height:100%;display:block;object-fit:cover;object-position:center;transition:transform .45s ease;background:#ddd}.work:hover .work-image{transform:scale(1.045)}.art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,24,.08),rgba(7,12,24,.18));pointer-events:none}.art:before,.art:after{content:"";position:absolute}.a1{background:linear-gradient(140deg,#263335,#8b654d 40%,#e2c4a0 68%,#333c3a)}.a1:before{inset:35px 42px;background:linear-gradient(150deg,#455451,#b59b77 48%,#504034);clip-path:polygon(0 20%,75% 0,100% 75%,20% 100%)}.a1:after{width:170px;height:170px;right:28px;bottom:25px;border-radius:50%;background:#dce0ceaa;filter:blur(8px)}
+.a2{background:linear-gradient(140deg,#dfc7a3,#f6f0e1 43%,#6e5039 44%,#2a1c16)}.a2:before{width:250px;height:265px;left:48px;top:55px;border-radius:48% 48% 35% 35%;background:linear-gradient(135deg,#231a16,#7e5b3e);box-shadow:120px 75px 0 -35px #f0e7d7}
+.a3{background:linear-gradient(140deg,#ffc8d7,#f7eadc 44%,#9769a3 45%,#3b2648)}.a3:before{width:210px;height:280px;left:50%;top:42px;transform:translateX(-50%);border-radius:48% 52% 25% 25%;background:linear-gradient(115deg,#f3afca,#fff0df 46%,#77567e);box-shadow:0 30px 30px #351a4455}
+.a4{background:linear-gradient(140deg,#b5e4f3,#d9f2e2 45%,#47688f)}.a4:before{width:260px;height:260px;left:55px;top:55px;border-radius:50%;background:#faf0d1;box-shadow:120px 40px 0 -30px #6c90a2}
+.a5{background:linear-gradient(140deg,#0e2731,#5d8494 45%,#e5cdb4)}.a5:before{width:220px;height:280px;right:58px;top:45px;border-radius:48% 48% 15% 15%;background:linear-gradient(130deg,#182a32,#d8bda4);transform:rotate(8deg)}
+.a6{background:linear-gradient(140deg,#f3d8bb,#c27a6d 42%,#402c39)}.a6:before{width:235px;height:255px;left:67px;top:50px;border-radius:50%;background:linear-gradient(120deg,#f2dfc5,#aa5c5b,#3c2832)}
+.art-badge{position:absolute;left:15px;top:15px;background:#111827df;color:#fff;border-radius:10px;padding:8px 11px;font-size:12px;font-weight:850;z-index:2}.ratio{position:absolute;right:15px;top:15px;background:#ffffffdc;color:#26364d;border-radius:9px;padding:7px 9px;font-size:12px;font-weight:850;z-index:2}
+.workbody{padding:18px 20px 20px}.cat{font-size:12px;color:#922fe9;font-weight:900;text-transform:uppercase;letter-spacing:.5px}.worktitle{font-size:20px;font-weight:900;margin-top:7px}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}.chip{background:#f0f3f7;border-radius:8px;padding:6px 9px;color:#53637a;font-size:11px;font-weight:700}.workmeta{display:flex;justify-content:space-between;align-items:center;margin-top:15px;color:#6c7a8e;font-size:12px}.link{color:#8c2ee9;font-weight:850;cursor:pointer}
+.creator-wrap{margin-top:52px;background:#fff;border:1px solid var(--line);border-radius:27px;padding:29px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.section-head h2{margin:0;font-size:34px;letter-spacing:-1.5px}.section-head p{margin:5px 0 0;color:var(--muted)}.creator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.creator{border:1px solid var(--line);border-radius:18px;padding:17px}.creator-top{display:flex;gap:11px}.avatar{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,#9134ec,#5630c9);color:#fff;display:grid;place-items:center;font-weight:900}.name{font-weight:900}.role{font-size:12px;color:#738196;margin-top:3px}.verified{font-size:10px;color:#0ca86c;font-weight:900}.creator-desc{font-size:12px;color:#66758b;line-height:1.5;margin:13px 0}.creator-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.rights{font-size:11px;color:#65758b}.rights.good{color:#129a69;font-weight:800}
+.briefband{margin-top:52px;border-radius:27px;background:#131d36;color:#fff;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:32px}.briefband h2{font-size:39px;letter-spacing:-2px;margin:14px 0 10px}.briefband p{color:#c1cada;line-height:1.6}.steps{display:grid;gap:10px}.step{border:1px solid #33415f;border-radius:14px;padding:14px;display:flex;gap:12px}.num{width:30px;height:30px;border-radius:9px;background:#fff;color:#111b33;display:grid;place-items:center;font-weight:900;flex:none}
+.engagement{margin-top:52px}.engagement-shell{background:#fff;border:1px solid var(--line);border-radius:27px;padding:27px}.pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:22px 0}.stage{padding:13px 10px;border:1px solid var(--line);border-radius:13px;text-align:center;color:#68778b;font-size:12px;font-weight:800}.stage.done{background:#ebfbf5;color:#128b61;border-color:#bcebd9}.stage.current{background:#f3eaff;color:#7f28d5;border-color:#dfc6ff}.project-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.project-card{border:1px solid var(--line);border-radius:18px;padding:20px}.project-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #eef1f5;font-size:13px}.project-row:last-child{border-bottom:0}.progress{height:8px;background:#edf1f5;border-radius:9px;overflow:hidden;margin-top:12px}.progress i{display:block;width:64%;height:100%;background:linear-gradient(90deg,#8b2bea,#a63aef)}
+.data{margin-top:52px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.data-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:23px}.data-card h3{margin-top:0}.code{background:#111a30;color:#dbe4f3;border-radius:14px;padding:16px;font:12px/1.7 ui-monospace,monospace;overflow:auto}
+.modal{position:fixed;inset:0;background:#09101d88;backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}.modal.open{display:flex}.modalbox{background:#fff;border-radius:24px;width:min(900px,100%);max-height:91vh;overflow:auto;padding:29px}.modalhead{display:flex;justify-content:space-between;align-items:start}.close{border:0;background:#eef1f5;width:36px;height:36px;border-radius:50%;font-size:20px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.full{grid-column:1/-1}.label{font-size:12px;font-weight:850;display:block;margin:12px 0 6px}.aiassist{background:#f4eaff;border:1px solid #e3ccff;border-radius:16px;padding:16px;margin:18px 0}.aiassist b{color:#7d27d5}.ai-row{display:flex;gap:9px;margin-top:10px}.ai-row input{flex:1}.modal-footer{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.profile-hero{display:flex;gap:14px;align-items:center}.profile-avatar{width:78px;height:78px;border-radius:22px;background:#eef1f6;display:grid;place-items:center;color:#fff;font-weight:900;font-size:23px;overflow:hidden;box-shadow:0 8px 22px #1a214012}.profile-avatar img{width:100%;height:100%;object-fit:cover;display:block}.avatar{width:52px;height:52px;border-radius:15px;background:#eef1f6;color:#fff;display:grid;place-items:center;font-weight:900;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover;display:block}.portfolio{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}.portfolio .media-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#f7f8fb}.portfolio .media-frame{height:190px;position:relative;background:#101629;overflow:hidden}.portfolio .media-frame video,.portfolio .media-frame img{width:100%;height:100%;display:block;object-fit:cover}.portfolio .media-info{padding:11px 12px}.portfolio .media-title{font-weight:900;font-size:13px}.portfolio .media-meta{font-size:11px;color:#748197;margin-top:4px}.media-type{position:absolute;left:10px;top:10px;background:#101629d9;color:#fff;border:1px solid #ffffff33;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;z-index:2}.play-hint{position:absolute;right:10px;top:10px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#ffffffea;color:#151a2c;font-size:13px;z-index:2}.animated-preview{width:100%;height:100%;object-fit:cover}.verify-box{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.verify-pill{background:#ebfbf5;color:#118b62;padding:7px 10px;border-radius:8px;font-size:11px;font-weight:800}.toast{position:fixed;right:24px;bottom:24px;background:#121b31;color:#fff;padding:14px 17px;border-radius:13px;display:none;z-index:120;box-shadow:var(--shadow)}
+
+.collab-list{display:grid;gap:12px;margin-top:18px}.request-card{border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:1.2fr .8fr auto;gap:14px;align-items:center}.request-main{display:flex;gap:11px;align-items:center}.request-meta{font-size:12px;color:#718096;line-height:1.5}.status-pill{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:850}.status-pill.pending{background:#fff7e6;color:#b26a00}.status-pill.accepted{background:#ebfbf5;color:#118b62}.status-pill.rejected{background:#fff0f0;color:#c64747}.request-actions{display:flex;gap:7px;justify-content:flex-end}.mini-avatar{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#9134ec,#5530c9);display:grid;place-items:center;color:#fff;font-weight:900;flex:none}
+@media(max-width:850px){.request-card{grid-template-columns:1fr}.request-actions{justify-content:flex-start}}
+@media(max-width:1250px){.brand{min-width:265px}.actions .btn:first-child{display:none}.workgrid{grid-template-columns:repeat(2,1fr)}.creator-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){.top{height:auto;flex-wrap:wrap;padding:13px 17px}.brand{min-width:auto}.nav{order:3;flex-basis:100%;max-width:none}.actions{display:none}main{padding:20px}.hero{padding:45px 30px}.hero h1{font-size:52px}.hero p{font-size:18px}.briefband,.project-grid,.data{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr 1fr}.creator-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.brand-title{font-size:21px}.logo{width:47px;height:47px}.nav button{font-size:12px;padding:11px 7px}.hero h1{font-size:42px;letter-spacing:-2.5px}.hero-actions{flex-direction:column}.hero-actions .btn{justify-content:center}.hero-points{flex-direction:column;gap:12px}.filters{overflow:auto;flex-wrap:nowrap}.filter{white-space:nowrap}.toolbar{flex-direction:column}.workgrid,.creator-grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.portfolio{grid-template-columns:1fr}.briefband h2{font-size:31px}}
+.work-media{width:100%;height:100%;display:block;object-fit:cover}.work-image{position:relative;overflow:hidden}.work-image .work-media{position:absolute;inset:0}.video-overlay{position:absolute;left:14px;bottom:14px;background:#111827dd;color:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900;z-index:3;pointer-events:none}.work-image img.work-media{background:#eee}</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="logo">✧</div>
+    <div><div class="brand-title">CreateConnect <span>AI</span></div><div class="brand-sub">CREATIVE MARKETPLACE</div></div>
+  </div>
+  <nav class="nav">
+    <button class="active" onclick="scrollToSection('discover',this)">Discover Work</button>
+    <button onclick="scrollToSection('creators',this)">Find Creators</button>
+    <button onclick="scrollToSection('engagements',this)">Engagements</button>
+    <button onclick="openBrief()">Brand Briefs</button>
+  </nav>
+  <div class="actions">
+    <button class="btn" onclick="openSpecs()">ⓘ Architecture</button>
+    <button class="btn dark" onclick="openBrief()">▣ + Post a Brief</button>
+    <button class="btn purple" onclick="showToast('Creator publishing flow opened')">＋ Publish Work</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">✧ &nbsp; WHERE CREATIVITY MEETS OPPORTUNITY</div>
+    <h1>Big ideas deserve<br><span>a bigger stage.</span></h1>
+    <p>Discover top AI creators, explore verified AI workflows, publish structured briefs, and manage commercial creative work from first match to final delivery.</p>
+    <div class="hero-actions">
+      <button class="btn purple" onclick="scrollToSection('creators')">⌕ &nbsp; Find a Creator</button>
+      <button class="btn" onclick="openBrief()">AI Brief Builder</button>
+    </div>
+    <div class="hero-points">
+      <div class="point"><span class="check">✓</span>AI-first portfolios</div>
+      <div class="point"><span class="check">✓</span>Commercial rights ready</div>
+      <div class="point"><span class="check">✓</span>Verified workflows</div>
+      <div class="point"><span class="check">✓</span>Engagement tracking</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="discover">
+  <div class="filters">
+    <button class="filter active" onclick="setCategory('All work',this)">✧ &nbsp; All work</button>
+    <button class="filter" onclick="setCategory('AI Videos & Animation',this)">▣ &nbsp; AI Videos & Animation</button>
+    <button class="filter" onclick="setCategory('Images & Art',this)">▧ &nbsp; Images & Art</button>
+    <button class="filter" onclick="setCategory('Fashion & Clothing',this)">♧ &nbsp; Fashion & Clothing</button>
+    <button class="filter" onclick="setCategory('Restaurant & Food',this)">♜ &nbsp; Restaurant & Food</button>
+    <button class="filter" onclick="setCategory('Ideas & Concepts',this)">♧ &nbsp; Ideas & Concepts</button>
+  </div>
+  <div class="toolbar">
+    <div class="search"><span>⌕</span><input id="workSearch" placeholder="Search AI work, tools, styles..." oninput="renderWorks()"/></div>
+    <select id="workTool" class="field" onchange="renderWorks()"><option value="">All tools</option><option>Sora</option><option>Midjourney v6</option><option>Runway</option><option>Veo</option><option>Luma Dream Machine</option></select>
+    <select id="workRights" class="field" onchange="renderWorks()"><option value="">Any rights</option><option value="Commercial">Commercial-ready</option><option value="Verified">Verified workflow</option></select>
+  </div>
+  <div class="workgrid" id="workgrid"></div>
+</section>
+
+<section class="creator-wrap" id="creators">
+  <div class="section-head">
+    <div><h2>Find creators who get AI</h2><p>Search across skills, specialization, tools, content type and commercial-use readiness.</p></div>
+    <button class="btn" onclick="openBrief()">Post a brief</button>
+  </div>
+  <div class="toolbar">
+    <div class="search"><span>⌕</span><input id="creatorSearch" placeholder="Search creator, skill or specialization..." oninput="renderCreators()"/></div>
+    <select id="creatorSkill" class="field" onchange="renderCreators()"><option value="">All skills</option><option>AI Film</option><option>3D</option><option>Motion</option><option>Editorial</option><option>Product</option><option>Fashion</option></select>
+    <select id="creatorTool" class="field" onchange="renderCreators()"><option value="">All tools</option><option>Runway</option><option>Sora</option><option>Midjourney</option><option>Veo</option><option>Blender</option></select>
+    <select id="creatorType" class="field" onchange="renderCreators()"><option value="">All content</option><option>Video</option><option>Image</option><option>3D</option><option>Social</option></select>
+    <select id="creatorRights" class="field" onchange="renderCreators()"><option value="">Commercial use</option><option value="yes">Ready</option></select>
+  </div>
+  <div class="creator-grid" id="creatorgrid"></div>
+</section>
+
+<section class="briefband">
+  <div>
+    <div class="eyebrow">✦ AI-ASSISTED BRIEF BUILDER</div>
+    <h2>From rough idea to creator-ready brief.</h2>
+    <p>Describe a campaign in plain language. CreateConnect turns it into structured requirements covering content type, style, aspect ratio, deliverables, deadline and commercial-use terms.</p>
+    <button class="btn purple" onclick="openBrief()">Build a brief</button>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="num">01</span><div><b>Define</b><div style="color:#aeb9cb;font-size:13px">Campaign, audience, style, format and rights.</div></div></div>
+    <div class="step"><span class="num">02</span><div><b>Match</b><div style="color:#aeb9cb;font-size:13px">Rank creators using AI-specific portfolio signals.</div></div></div>
+    <div class="step"><span class="num">03</span><div><b>Engage</b><div style="color:#aeb9cb;font-size:13px">Manage milestones, feedback, versions and approvals.</div></div></div>
+    <div class="step"><span class="num">04</span><div><b>Deliver</b><div style="color:#aeb9cb;font-size:13px">Close with rights, final assets and project history.</div></div></div>
+  </div>
+</section>
+
+<section class="engagement" id="engagements">
+  <div class="section-head"><div><h2>Manage the engagement</h2><p>Discovery-to-delivery workspace for brands, agencies and creators.</p></div><button class="btn" onclick="showToast('Project workspace opened')">Open workspace</button></div>
+  <div class="engagement-shell">
+    <div class="pipeline">
+      <div class="stage done">✓ Discovery</div><div class="stage done">✓ Brief</div><div class="stage current">● In production</div><div class="stage">Review</div><div class="stage">Delivery</div>
+    </div>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3 style="margin-top:0">Aurora Skincare — Launch Film</h3>
+        <div class="project-row"><span>Creator</span><b>Maya Chen · AI Film Director</b></div>
+        <div class="project-row"><span>Deliverables</span><b>1 × 16:9 hero + 3 × 9:16 cutdowns</b></div>
+        <div class="project-row"><span>Commercial use</span><b style="color:#129a69">Worldwide paid + organic ✓</b></div>
+        <div class="project-row"><span>Due</span><b>18 Oct 2026</b></div>
+        <div style="font-size:12px;color:#69778d;margin-top:17px">Production progress</div><div class="progress"><i></i></div>
+      </div>
+      <div class="project-card">
+        <h3 style="margin-top:0">Latest activity</h3>
+        <div class="project-row"><span>09:42</span><span>Creator uploaded v3</span></div>
+        <div class="project-row"><span>Yesterday</span><span>Brand approved storyboard</span></div>
+        <div class="project-row"><span>Oct 8</span><span>Commercial rights confirmed</span></div>
+        <div class="project-row"><span>Oct 7</span><span>Brief accepted</span></div>
+        <button class="btn small" style="margin-top:12px" onclick="showToast('Opening project messages')">Open messages →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="engagement" id="collaborationRequests">
+  <div class="section-head">
+    <div><h2>Collaboration requests</h2><p>Track invitations sent from creator profiles and move accepted requests into an engagement.</p></div>
+    <button class="btn" onclick="showToast('Request inbox refreshed')">Refresh</button>
+  </div>
+  <div class="engagement-shell">
+    <div id="requestList" class="collab-list"></div>
+  </div>
+</section>
+
+<section class="data">
+  <div class="data-card">
+    <h3>Creator profile data model</h3>
+    <p style="color:#69788e;font-size:13px;line-height:1.5">Structured fields power creator discovery, trust signals and matching.</p>
+    <div class="code">creator {<br>
+  name, bio, specialization,<br>
+  skills[], tools[], models[],<br>
+  contentTypes[], formats[],<br>
+  portfolio[], workflow[],<br>
+  commercialUse: {status, territories},<br>
+  verification: {tools, workflow, work}<br>}</div>
+  </div>
+  <div class="data-card">
+    <h3>Brand brief data model</h3>
+    <p style="color:#69788e;font-size:13px;line-height:1.5">Brief fields are designed to be searchable and usable by the matching engine.</p>
+    <div class="code">brief {<br>
+  brand, campaign, objective,<br>
+  requirements, style, contentTypes[],<br>
+  formats[], aspectRatios[],<br>
+  deadline, budget, deliverables[],<br>
+  commercialUse, status, creatorId<br>}</div>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="briefModal">
+  <div class="modalbox">
+    <div class="modalhead"><div><div class="eyebrow" style="color:#7b28d6;background:#f3e7ff;border-color:#e2caff">✦ AI BRIEF BUILDER</div><h2 style="margin:13px 0 0;font-size:31px">Create a brand / agency brief</h2></div><button class="close" onclick="closeModal('briefModal')">×</button></div>
+    <div class="aiassist"><b>AI assist</b><div style="color:#64738b;font-size:13px;margin-top:4px">Start with a rough idea. The prototype will structure it into a creator-ready brief.</div><div class="ai-row"><input id="roughIdea" class="field" placeholder="e.g. Futuristic skincare launch film with tactile liquid textures..."/><button class="btn purple" onclick="generateBrief()">Generate</button></div></div>
+    <div class="formgrid">
+      <div><label class="label">Brand / Agency</label><input id="briefBrand" class="field" placeholder="Acme Studio"/></div>
+      <div><label class="label">Campaign</label><input id="briefCampaign" class="field" placeholder="Summer launch"/></div>
+      <div><label class="label">Campaign requirements</label><select id="briefReq" class="field"><option>Brand launch</option><option>Product campaign</option><option>Social campaign</option><option>Editorial</option><option>Experiential</option></select></div>
+      <div><label class="label">Content type</label><select id="briefType" class="field"><option>AI Video</option><option>Images & Art</option><option>3D / Animation</option><option>Social Content</option><option>Fashion</option></select></div>
+      <div><label class="label">Style</label><input id="briefStyle" class="field" placeholder="Cinematic, premium, tactile..."/></div>
+      <div><label class="label">Aspect ratio / format</label><select id="briefFormat" class="field"><option>16:9</option><option>9:16</option><option>1:1</option><option>4:5</option><option>Multiple formats</option></select></div>
+      <div><label class="label">Deadline</label><input id="briefDeadline" type="date" class="field"/></div>
+      <div><label class="label">Budget</label><select class="field"><option>$1k–$3k</option><option>$3k–$7k</option><option>$7k–$15k</option><option>$15k+</option></select></div>
+      <div class="full"><label class="label">Creative requirements / deliverables</label><textarea id="briefDetails" class="field" style="min-height:125px" placeholder="Audience, key messages, references, deliverables, workflow expectations..."></textarea></div>
+      <div><label class="label">Commercial-use requirements</label><select id="briefRights" class="field"><option>Worldwide paid + organic</option><option>Broadcast + digital</option><option>Organic social only</option><option>To be negotiated</option></select></div>
+      <div><label class="label">Workflow evidence</label><select class="field"><option>Required</option><option>Preferred</option><option>Not required</option></select></div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('briefModal')">Cancel</button><button class="btn purple" onclick="publishBrief()">Publish Brief & Match Creators</button></div>
+  </div>
+</div>
+
+<div class="modal" id="profileModal"><div class="modalbox"><div id="profileContent"></div></div></div>
+
+<div class="modal" id="requestModal">
+  <div class="modalbox">
+    <div class="modalhead">
+      <div>
+        <div class="eyebrow" style="color:#7b28d6;background:#f3e7ff;border-color:#e2caff">✦ COLLABORATION REQUEST</div>
+        <h2 style="margin:13px 0 0;font-size:31px">Invite <span id="requestCreatorName">creator</span> to collaborate</h2>
+        <p style="color:#6c7a8e;margin:8px 0 0">Send a structured request with the campaign, deliverables, budget and commercial-use terms.</p>
+      </div>
+      <button class="close" onclick="closeModal('requestModal')">×</button>
+    </div>
+    <div class="formgrid">
+      <div><label class="label">Campaign / Project</label><input id="requestCampaign" class="field" placeholder="Smartwatch Launch"/></div>
+      <div><label class="label">Budget</label><select id="requestBudget" class="field"><option>₹50,000–₹1,00,000</option><option>₹1,00,000–₹2,50,000</option><option>₹2,50,000–₹5,00,000</option><option>₹5,00,000+</option></select></div>
+      <div><label class="label">Content format</label><select id="requestFormat" class="field"><option>1 × 16:9 hero + 3 × 9:16 cutdowns</option><option>3 × Social videos</option><option>10 × AI product images</option><option>Custom deliverables</option></select></div>
+      <div><label class="label">Target deadline</label><input id="requestDeadline" type="date" class="field"/></div>
+      <div><label class="label">Commercial use</label><select id="requestRights" class="field"><option>Worldwide paid + organic</option><option>Digital paid + organic</option><option>Organic social only</option><option>To be negotiated</option></select></div>
+      <div><label class="label">Preferred workflow</label><select id="requestWorkflow" class="field"><option>Document AI tools + prompts</option><option>Document final tools only</option><option>Flexible</option></select></div>
+      <div class="full"><label class="label">Message to creator</label><textarea id="requestMessage" class="field" style="min-height:130px" placeholder="Tell the creator what you want to make, key references, audience, tone and any important constraints..."></textarea></div>
+    </div>
+    <div class="aiassist">
+      <b>Trust & matching</b>
+      <div style="color:#64738b;font-size:13px;margin-top:5px">The request keeps the commercial terms, deliverables and workflow expectations visible to both sides before the engagement begins.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('requestModal')">Cancel</button>
+      <button class="btn purple" onclick="sendCollabRequest()">Send Collaboration Request →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="specModal">
+  <div class="modalbox"><div class="modalhead"><div><div class="eyebrow" style="color:#7b28d6;background:#f3e7ff;border-color:#e2caff">PRODUCT BLUEPRINT</div><h2 style="margin:13px 0 0;font-size:31px">Architecture & demo approach</h2></div><button class="close" onclick="closeModal('specModal')">×</button></div>
+  <p style="color:#68778d;line-height:1.6">The prototype uses structured AI-specific metadata rather than generic creator profiles. That lets brands filter and match by tools, skills, content types, formats, workflow evidence and commercial-use readiness.</p>
+  <div class="data" style="margin-top:18px"><div class="data-card"><h3>Trust layer</h3><p class="muted">✓ Tool verification<br>✓ Workflow evidence<br>✓ Portfolio provenance<br>✓ Commercial-rights status</p></div><div class="data-card"><h3>Matching layer</h3><p class="muted">Skills × specialization × tools × content type × format × rights × brief requirements.</p></div></div>
+  <h3>Demo flow</h3><ol style="color:#596980;line-height:1.8"><li>Brand searches creator network.</li><li>Brand opens an AI portfolio and inspects tools/workflow.</li><li>Brand generates a structured brief with AI assist.</li><li>Creators are matched and engagement starts.</li><li>Milestones move through production, review and delivery.</li></ol>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const works=[
+ {title:"Molecular Culinary Experience",cat:"Restaurant & Food",tags:["Sora","Midjourney v6","Luma Dream Machine","+1"],ratio:"16:9",art:"a1",type:"image",image:"https://images.unsplash.com/photo-1502491759181-ffa0aead0076?auto=format&fit=crop&fm=jpg&q=85&w=1600",rights:["Commercial","Verified"]},
+ {title:"AI Gourmet Stories",cat:"Restaurant & Food",tags:["Sora","Veo","Food Styling"],ratio:"4:5",art:"a2",type:"image",image:"https://images.unsplash.com/photo-1675619448864-4b46c66e7212?auto=format&fit=crop&fm=jpg&q=85&w=1600",rights:["Commercial","Verified"]},
+ {title:"Dessert Dreamscape",cat:"Restaurant & Food",tags:["Midjourney v6","Runway","Product Visuals"],ratio:"1:1",art:"a3",type:"image",image:"https://images.unsplash.com/photo-1779282833204-076de40e621f?auto=format&fit=crop&fm=jpg&q=85&w=1600",rights:["Commercial"]},
+ {title:"Future of Fashion — SS26",cat:"Fashion & Clothing",tags:["Runway","Midjourney v6"],ratio:"9:16",art:"a2",type:"video",src:"assets/videos/fashion-motion.mp4",poster:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=85",image:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=85",rights:["Commercial","Verified"]},
+ {title:"Dreamscape Portraits",cat:"Images & Art",tags:["Midjourney v6","Veo"],ratio:"1:1",art:"a3",type:"image",image:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1400&q=85",rights:["Verified"]},
+ {title:"Ocean Memory",cat:"Ideas & Concepts",tags:["Sora","Luma Dream Machine"],ratio:"16:9",art:"a5",type:"image",image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85",rights:["Verified"]},
+ {title:"Afterglow Beauty",cat:"Fashion & Clothing",tags:["Midjourney v6","Runway"],ratio:"4:5",art:"a6",type:"image",image:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1400&q=85",rights:["Commercial","Verified"]}
+];
+const creators=[
+ {name:"Maya Chen",portfolioSet:0,role:"AI Film Director",init:"MC",profileImage:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=85",skills:["AI Film","Runway","Sora"],types:["Video","Social"],spec:"Cinematic brand films",verified:true,rights:true,desc:"Cinematic launch films combining generative video, live-action direction and strong art direction."},
+ {name:"Leo Martins",portfolioSet:1,role:"Generative 3D Artist",init:"LM",profileImage:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=85",skills:["3D","Blender","Veo"],types:["3D","Video"],spec:"Product worlds",verified:true,rights:true,desc:"Photoreal product worlds, procedural motion and AI-assisted 3D production."},
+ {name:"Aisha Rahman",portfolioSet:2,role:"AI Art Director",init:"AR",profileImage:"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=500&q=85",skills:["Editorial","Midjourney","Runway"],types:["Image","Social"],spec:"Fashion & culture",verified:true,rights:false,desc:"Concept-led visual systems for fashion, culture and premium editorial campaigns."},
+ {name:"Noah Kim",portfolioSet:3,role:"Motion Designer",init:"NK",profileImage:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=85",skills:["Motion","Runway","Blender"],types:["Video","Social"],spec:"Social campaigns",verified:false,rights:true,desc:"Fast-moving AI motion systems and stylized social concepts for technology brands."},
+ {name:"Sofia Bell",portfolioSet:4,role:"AI Image Creator",init:"SB",profileImage:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=500&q=85",skills:["Product","Midjourney","Veo"],types:["Image","Social"],spec:"Product visual systems",verified:true,rights:true,desc:"High-volume product image systems with consistent art direction and post-production."},
+ {name:"Ethan Cole",portfolioSet:5,role:"Creative Technologist",init:"EC",profileImage:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=85",skills:["AI Film","Sora","Runway"],types:["Video","Image"],spec:"Experiential campaigns",verified:true,rights:true,desc:"Generative campaigns combining AI video, code, interactive design and brand systems."},
+ {name:"Priya Shah",portfolioSet:2,role:"Generative Fashion Artist",init:"PS",profileImage:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=85",skills:["Fashion","Midjourney","Veo"],types:["Image","Social"],spec:"Editorial campaigns",verified:true,rights:true,desc:"High-concept fashion imagery and campaign worlds with documented workflows."},
+ {name:"Daniel Park",portfolioSet:0,role:"AI Motion Director",init:"DP",profileImage:"https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=500&q=85",skills:["Motion","Sora","Runway"],types:["Video","Social"],spec:"Launch films",verified:false,rights:true,desc:"AI motion direction for product launches, music visuals and short-form campaigns."}
+];
+let activeCat="All work";
+let selectedCreatorIndex=null;
+let collaborationRequests=[
+ {id:"REQ-1042",creator:"Maya Chen",init:"MC",campaign:"Aurora Skincare — Launch Film",budget:"₹2,50,000–₹5,00,000",deadline:"18 Oct 2026",status:"Accepted",message:"1 hero film + social cutdowns with documented AI workflow."},
+ {id:"REQ-1043",creator:"Priya Shah",init:"PS",campaign:"Smartwatch Launch",budget:"₹1,00,000–₹2,50,000",deadline:"20 Oct 2026",status:"Pending",message:"Premium product campaign with worldwide paid + organic rights."}
+];
+
+function renderWorks(){
+ const q=(document.getElementById("workSearch").value||"").toLowerCase(),tool=document.getElementById("workTool").value,right=document.getElementById("workRights").value;
+ const list=works.filter(w=>(activeCat==="All work"||w.cat===activeCat)&&(!q||[w.title,w.cat,...w.tags].join(" ").toLowerCase().includes(q))&&(!tool||w.tags.includes(tool))&&(!right||w.rights.includes(right)));
+ document.getElementById("workgrid").innerHTML=list.map((w,i)=>{const visual=w.type==="video"?`<video class="work-image work-video" muted loop playsinline preload="metadata" poster="${w.poster||w.image||""}" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"><source src="${w.src}" type="video/mp4"></video><span class="video-overlay">▶ VIDEO</span>`:`<img class="work-image" src="${w.image}" alt="${w.title}" loading="lazy">`;return `<article class="work"><div class="art ${w.art}">${visual}<span class="art-badge">▣ ${w.type==="video"?"AI Video":"AI Work"}</span><span class="ratio">${w.ratio}</span></div><div class="workbody"><div class="cat">${w.cat}</div><div class="worktitle">${w.title}</div><div class="chips">${w.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div><div class="workmeta"><span>✓ ${w.rights.join(" · ")}</span><span class="link" onclick="showToast('Portfolio work opened')">View work →</span></div></div></article>`}).join("")||`<div style="grid-column:1/-1;background:#fff;border:1px solid var(--line);border-radius:20px;padding:55px;text-align:center;color:#68778d">No work matches these filters.</div>`;
+}
+function renderCreators(){
+ const q=(document.getElementById("creatorSearch").value||"").toLowerCase(),skill=document.getElementById("creatorSkill").value,tool=document.getElementById("creatorTool").value,type=document.getElementById("creatorType").value,rights=document.getElementById("creatorRights").value;
+ const list=creators.map((c,i)=>({...c,i})).filter(c=>(!q||[c.name,c.role,c.spec,c.desc,...c.skills].join(" ").toLowerCase().includes(q))&&(!skill||c.skills.includes(skill))&&(!tool||c.skills.includes(tool))&&(!type||c.types.includes(type))&&(!rights||c.rights));
+ document.getElementById("creatorgrid").innerHTML=list.map(c=>`<article class="creator"><div class="creator-top"><div class="avatar">${c.profileImage?`<img src="${c.profileImage}" alt="${c.name}" loading="lazy">`:c.init}</div><div><div class="name">${c.name} ${c.verified?'<span class="verified">✓ VERIFIED</span>':''}</div><div class="role">${c.role}</div></div></div><div class="creator-desc"><b>${c.spec}</b><br>${c.desc}</div><div class="chips">${c.skills.map(s=>`<span class="chip">${s}</span>`).join("")}</div><div class="creator-bottom"><span class="rights ${c.rights?'good':''}">${c.rights?'✓ Commercial ready':'Rights on request'}</span><button class="btn small" onclick="openProfile(${c.i})">View profile</button></div></article>`).join("")||`<div style="grid-column:1/-1;text-align:center;padding:50px;color:#68778d">No creators match those filters.</div>`;
+}
+function setCategory(c,el){activeCat=c;document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderWorks()}
+function scrollToSection(id,el){document.getElementById(id).scrollIntoView({behavior:"smooth"});if(el){document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));el.classList.add("active")}}
+function openBrief(){document.getElementById("briefModal").classList.add("open")}
+function openSpecs(){document.getElementById("specModal").classList.add("open")}
+function closeModal(id){document.getElementById(id).classList.remove("open")}
+function generateBrief(){
+ const idea=document.getElementById("roughIdea").value||"Cinematic premium launch campaign for a futuristic consumer product.";
+ document.getElementById("briefStyle").value=idea.toLowerCase().includes("fashion")?"Editorial, high-fashion, tactile":"Cinematic, premium, tactile, futuristic";
+ document.getElementById("briefDetails").value=`Campaign direction: ${idea}\n\nDeliverables: 1 hero asset + 3 social cutdowns.\nAudience: design-conscious consumers.\nCreative direction: coherent art direction, polished motion, consistent visual language.\nWorkflow: creator should document AI models, prompts and post-production.\nRights: worldwide paid + organic unless otherwise negotiated.`;
+ showToast("AI brief structure generated");
+}
+function publishBrief(){closeModal("briefModal");showToast("Brief published — creator matching started")}
+function mediaCard(item){
+ const type=item.type==='video'?'VIDEO':(item.type==='image'?'IMAGE':'ANIMATED');
+ const media=item.type==='video'
+  ? `<video controls preload="metadata" poster="${item.poster||''}" aria-label="${item.title}"><source src="${item.src}" type="video/mp4">Your browser does not support video playback.</video><span class="play-hint">▶</span>`
+  : `<img class="animated-preview" src="${item.src}" alt="${item.title}" loading="lazy">`;
+ return `<div class="media-card"><div class="media-frame"><span class="media-type">${type}</span>${media}</div><div class="media-info"><div class="media-title">${item.title}</div><div class="media-meta">${item.meta}</div></div></div>`;
+}
+function creatorPortfolio(c){
+ const sets=[
+  [
+   {type:'video',title:'AI Brand Film — Aurora',meta:'Sora + Runway · 16:9',src:'assets/videos/ai-brand-film.mp4',poster:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85'},
+   {type:'video',title:'Restaurant Launch Film',meta:'Sora · Food & Restaurant · 16:9',src:'assets/videos/product-motion.mp4',poster:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=85'},
+   {type:'animated',title:'Liquid Food Motion',meta:'Animated culinary concept · Loop',src:'assets/animated/liquid-orbit.svg'},
+   {type:'image',title:'Gourmet Hero Visual',meta:'Restaurant & Food · Commercial',src:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85'}
+  ],
+  [
+   {type:'video',title:'Product World — Motion',meta:'Veo + Blender · Product · 16:9',src:'assets/videos/product-motion.mp4',poster:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=85'},
+   {type:'video',title:'Tech Product Reveal',meta:'Veo · Product Film · 16:9',src:'assets/videos/ai-brand-film.mp4',poster:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=85'},
+   {type:'animated',title:'Neon Product',meta:'Animated product visual · 3D',src:'assets/animated/neon-product.svg'},
+   {type:'image',title:'Premium Product Still',meta:'Product Visual · Commercial',src:'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=85'}
+  ],
+  [
+   {type:'video',title:'Fashion Editorial Motion',meta:'Runway + Midjourney · 9:16',src:'assets/videos/fashion-motion.mp4',poster:'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=85'},
+   {type:'image',title:'SS26 Editorial',meta:'Fashion & Clothing · 9:16',src:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=85'},
+   {type:'image',title:'Streetwear Campaign',meta:'Fashion · Commercial',src:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85'},
+   {type:'animated',title:'Fabric Flow',meta:'Animated fashion concept · Loop',src:'assets/animated/liquid-orbit.svg'}
+  ],
+  [
+   {type:'video',title:'Motion Social Campaign',meta:'Runway + Blender · 9:16',src:'assets/videos/fashion-motion.mp4',poster:'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=85'},
+   {type:'video',title:'Brand Motion Study',meta:'Sora · Social · 16:9',src:'assets/videos/ai-brand-film.mp4',poster:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=85'},
+   {type:'animated',title:'Neon Product',meta:'Animated social visual · Loop',src:'assets/animated/neon-product.svg'},
+   {type:'image',title:'Digital Campaign Still',meta:'Social Campaign · Commercial',src:'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=85'}
+  ],
+  [
+   {type:'image',title:'Beauty Product Hero',meta:'Beauty · Commercial',src:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=85'},
+   {type:'image',title:'Cosmetic Editorial',meta:'Beauty & Skincare · 4:5',src:'https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=1000&q=85'},
+   {type:'video',title:'Beauty Motion Ad',meta:'Veo · Product Film · 16:9',src:'assets/videos/product-motion.mp4',poster:'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1000&q=85'},
+   {type:'animated',title:'Glow Liquid',meta:'Animated beauty concept · Loop',src:'assets/animated/liquid-orbit.svg'}
+  ],
+  [
+   {type:'video',title:'Experiential Brand Film',meta:'Sora + Runway · 16:9',src:'assets/videos/ai-brand-film.mp4',poster:'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85'},
+   {type:'image',title:'Interactive Product World',meta:'Ideas & Concepts · 16:9',src:'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85'},
+   {type:'animated',title:'Liquid Orbit',meta:'Animated concept · Loop',src:'assets/animated/liquid-orbit.svg'},
+   {type:'image',title:'Ocean Memory',meta:'Concept Art · Sora',src:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85'}
+  ]
+ ];
+ const set=sets[c.portfolioSet||0];
+ return set.map(mediaCard).join('');
+}
+function openProfile(i){
+ const c=creators[i];
+ selectedCreatorIndex=i;
+ document.getElementById("profileContent").innerHTML=`<div class="modalhead"><div><div class="profile-hero"><div class="profile-avatar">${c.profileImage?`<img src="${c.profileImage}" alt="${c.name}">`:c.init}</div><div><h2 style="margin:0">${c.name} ${c.verified?'<span class="verified">✓ VERIFIED</span>':''}</h2><div style="color:#6e7c91;margin-top:3px">${c.role} · ${c.spec}</div></div></div></div><button class="close" onclick="closeModal('profileModal')">×</button></div>
+ <p style="color:#63738a;line-height:1.6">${c.desc}</p><div style="font-size:11px;color:#758398;margin-top:-6px">Profile photo · AI portfolio · verified creator identity</div>
+ <div class="chips">${c.skills.map(s=>`<span class="chip">${s}</span>`).join("")}${c.types.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
+ <div class="verify-box"><span class="verify-pill">✓ Tool workflow verified</span><span class="verify-pill">✓ Portfolio provenance</span>${c.rights?'<span class="verify-pill">✓ Commercial-use ready</span>':''}</div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px"><div><h3 style="margin:0">AI portfolio</h3><div style="font-size:12px;color:#758398;margin-top:4px">Watch videos and preview animated concepts before collaborating.</div></div><span style="font-size:12px;color:#758398">Video · Motion · Animated</span></div>
+ <div class="portfolio">${creatorPortfolio(c)}</div>
+ <div class="project-card" style="margin-top:18px;background:#fafbfe"><h3 style="margin-top:0">Creator readiness</h3><div class="project-row"><span>Commercial rights</span><b style="color:#129a69">${c.rights?'Ready':'Needs negotiation'}</b></div><div class="project-row"><span>Workflow evidence</span><b>Verified</b></div><div class="project-row"><span>Response</span><b>Usually within 24h</b></div></div>
+ <div class="modal-footer"><button class="btn" onclick="closeModal('profileModal')">Close</button><button class="btn purple" onclick="closeModal('profileModal');openCollabRequest()">Collaborate →</button></div>`;
+ document.getElementById("profileModal").classList.add("open");
+}
+function openCollabRequest(){
+ const c=creators[selectedCreatorIndex];
+ if(!c){showToast("Open a creator profile first");return}
+ document.getElementById("requestCreatorName").textContent=c.name;
+ document.getElementById("requestCampaign").value="";
+ document.getElementById("requestMessage").value=`Hi ${c.name}, we'd like to collaborate on a premium campaign. Please review the deliverables, deadline and commercial-use terms below.`;
+ document.getElementById("requestDeadline").value="";
+ document.getElementById("requestModal").classList.add("open");
+}
+function sendCollabRequest(){
+ const c=creators[selectedCreatorIndex];
+ if(!c)return;
+ const campaign=document.getElementById("requestCampaign").value.trim()||"New collaboration";
+ const budget=document.getElementById("requestBudget").value;
+ const deadline=document.getElementById("requestDeadline").value||"To be agreed";
+ const message=document.getElementById("requestMessage").value.trim()||"Collaboration request sent from CreateConnect AI.";
+ collaborationRequests.unshift({id:"REQ-"+(1044+collaborationRequests.length),creator:c.name,init:c.init,campaign,budget,deadline,status:"Pending",message});
+ closeModal("requestModal");
+ renderRequests();
+ showToast(`Collaboration request sent to ${c.name}`);
+ document.getElementById("collaborationRequests").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderRequests(){
+ const el=document.getElementById("requestList");
+ if(!el)return;
+ el.innerHTML=collaborationRequests.map((r,i)=>`<div class="request-card">
+   <div class="request-main"><div class="mini-avatar">${r.init}</div><div><b>${r.campaign}</b><div class="request-meta">${r.creator} · ${r.budget} · Due ${r.deadline}</div><div class="request-meta">${r.message}</div></div></div>
+   <div><span class="status-pill ${r.status.toLowerCase()}">${r.status}</span><div class="request-meta" style="margin-top:7px">${r.id}</div></div>
+   <div class="request-actions">
+    ${r.status==="Pending"?`<button class="btn small" onclick="setRequestStatus(${i},'Accepted')">Accept</button><button class="btn small" onclick="setRequestStatus(${i},'Rejected')">Reject</button>`:`<button class="btn small" onclick="showToast('Opening ${r.campaign}')">View request</button>`}
+   </div>
+ </div>`).join("");
+}
+function setRequestStatus(i,status){
+ collaborationRequests[i].status=status;
+ renderRequests();
+ showToast(`Request ${status.toLowerCase()}`);
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2800)}
+renderWorks();renderCreators();renderRequests();
+</script>
+</body>
+</html>
